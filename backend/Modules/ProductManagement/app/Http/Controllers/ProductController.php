@@ -62,9 +62,16 @@ class ProductController extends Controller
         }
     }
 
-    public function update(ProductUpdateRequest $request, $id)
+    public function update(ProductUpdateRequest $request, $product_id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($product_id);
+
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
 
         $product->update($request->validated());
 

@@ -14,7 +14,7 @@ class ProductUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        $product_id = $this->route('product_id');
+        $product_id = request()->product_id;
         return [
             'name' => 'sometimes|required|string|max:255',
             'SKU' => "sometimes|required|string|unique:products,SKU,$product_id,product_id|max:100",
@@ -63,14 +63,5 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'product price',
             'category_id' => 'category'
         ];
-    }
-
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if ($this->has('category_id') && $this->category_id === $this->product->category_id) {
-                $validator->errors()->add('category_id', 'Category is the same as the current category');
-            }
-        });
     }
 }
