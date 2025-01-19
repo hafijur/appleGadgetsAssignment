@@ -1,0 +1,11 @@
+{
+    "name": "SupplierManagement",
+    "alias": "suppliermanagement",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SupplierManagement\\Providers\\SupplierManagementServiceProvider"
+    ],
+    "files": []
+}
