@@ -1,22 +1,22 @@
 <?php
 
-namespace Modules\ProductManagement\Providers;
+namespace Modules\PurchaseManagement\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\ProductManagement\Services\Contracts\ProductContract;
-use Modules\ProductManagement\Services\ProductService;
+use Modules\PurchaseManagement\Services\Contracts\PurchaseContract;
+use Modules\PurchaseManagement\Services\PurchaseService;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class ProductManagementServiceProvider extends ServiceProvider
+class PurchaseManagementServiceProvider extends ServiceProvider
 {
     use PathNamespace;
 
-    protected string $name = 'ProductManagement';
+    protected string $name = 'PurchaseManagement';
 
-    protected string $nameLower = 'productmanagement';
+    protected string $nameLower = 'purchasemanagement';
 
     /**
      * Boot the application events.
@@ -38,7 +38,7 @@ class ProductManagementServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
-        $this->app->bind(ProductContract::class, ProductService::class);
+        $this->app->bind(PurchaseContract::class, PurchaseService::class);
     }
 
     /**

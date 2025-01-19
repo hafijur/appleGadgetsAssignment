@@ -21,8 +21,8 @@ class ProductResource extends JsonResource
             'current_stock_quantity' => $this->current_stock_quantity,
             'category_id' => $this->category_id,
             'category_name' => $this->category?->name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            // 'created_at' => $this->created_at,
+            // 'updated_at' => $this->updated_at
         ];
     }
 }

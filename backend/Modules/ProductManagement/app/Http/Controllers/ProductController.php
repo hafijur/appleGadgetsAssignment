@@ -7,48 +7,33 @@ use Illuminate\Http\Request;
 use Modules\ProductManagement\Http\Requests\ProductCreateRequest;
 use Modules\ProductManagement\Http\Requests\ProductUpdateRequest;
 use Modules\ProductManagement\Models\Product;
+use Modules\ProductManagement\Services\Contracts\ProductContract;
 use Modules\ProductManagement\Transformers\ProductResource;
 
 class ProductController extends Controller
 {
+    protected $productService;
+
+    public function __construct(ProductContract $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index(Request $request)
     {
-        $query = Product::query();
-
-        if ($request->has('SKU')) {
-            $query->where('SKU', 'like', '%' . $request->input('SKU') . '%');
-        }
-
-        if ($request->has('name')) {
-            $query->where('name', 'like', '%' . $request->input('name') . '%');
-        }
-
-        if ($request->has('category')) {
-            $query->where('category_id', $request->input('category'));
-        }
-
-        $products = $query->with('category')->paginate(10);
+        $products = $this->productService->listProducts($request->all());
 
         return response()->json([
             'success' => true,
-            'data' => ProductResource::collection($products->items()),
-            'meta' => [
-                'current_page' => $products->currentPage(),
-                'total' => $products->total(),
-                'per_page' => $products->perPage(),
-                'prev_page' => $products->previousPageUrl(),
-                'next_page' => $products->nextPageUrl(),
-                'last_page' => $products->lastPage()
-            ]
+            'data' => ProductResource::collection($products['data']),
+            'meta' => $products['meta']
         ]);
     }
+
     public function store(ProductCreateRequest $request)
     {
         try {
-            $product = Product::create([
-                ...$request->validated(),
-                'current_stock_quantity' => $request->input('initial_stock_quantity')
-            ]);
+            $product = $this->productService->createProduct($request->validated());
 
             return response()->json([
                 'success' => true,
@@ -73,13 +58,20 @@ class ProductController extends Controller
             ], 404);
         }
 
-        $product->update($request->validated());
+        try {
+            $updatedProduct = $this->productService->updateProduct($product_id, $request->validated());
 
-        return response()->json([
-            'success' => true,
-            'data' => new ProductResource($product),
-            'message' => 'Product updated successfully',
-        ]);
+            return response()->json([
+                'success' => true,
+                'data' => new ProductResource($updatedProduct),
+                'message' => 'Product updated successfully',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function destroy($product_id)
@@ -94,7 +86,8 @@ class ProductController extends Controller
         }
 
         try {
-            $product->delete();
+            $this->productService->deleteProduct($product_id);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Product deleted successfully'

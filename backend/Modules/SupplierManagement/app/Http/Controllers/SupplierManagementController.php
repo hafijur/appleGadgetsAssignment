@@ -7,49 +7,40 @@ use Illuminate\Http\Request;
 use Modules\SupplierManagement\Http\Requests\SupplierCreateRequest;
 use Modules\SupplierManagement\Http\Requests\SupplierUpdateRequest;
 use Modules\SupplierManagement\Models\Supplier;
+use Modules\SupplierManagement\Services\SupplierService;
 use Modules\SupplierManagement\Transformers\SupplierResource;
 
 class SupplierManagementController extends Controller
 {
+    protected $supplierService;
+
+    public function __construct(SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
 
     /**
      * List all suppliers.
      */
     public function index(Request $request)
     {
-        $query = Supplier::query();
-
-        // Filter by name
-        if ($request->has('name')) {
-            $query->where('name', 'like', '%' . $request->input('name') . '%');
-        }
-
-        $suppliers = $query->paginate(10);
+        $suppliers = $this->supplierService->listSuppliers($request->all());
 
         return response()->json([
             'message' => 'Suppliers retrieved successfully',
-            'data' => SupplierResource::collection($suppliers->items()),
-            'meta' => [
-                'current_page' => $suppliers->currentPage(),
-                'total' => $suppliers->total(),
-                'per_page' => $suppliers->perPage(),
-                'prev_page' => $suppliers->previousPageUrl(),
-                'next_page' => $suppliers->nextPageUrl(),
-                'last_page' => $suppliers->lastPage()
-            ]
+            'data' => SupplierResource::collection($suppliers['data']),
+            'meta' => $suppliers['meta']
         ]);
     }
-
-
 
     /**
      * Create a new supplier.
      */
     public function store(SupplierCreateRequest $request)
     {
-
         try {
-            $supplier = Supplier::create($request->validated());
+            $supplier = $this->supplierService->createSupplier($request->validated());
+
             return response()->json([
                 'success' => true,
                 'message' => 'Supplier created successfully',
@@ -77,13 +68,20 @@ class SupplierManagementController extends Controller
             ], 404);
         }
 
-        $supplier->update($request->validated());
+        try {
+            $updatedSupplier = $this->supplierService->updateSupplier($supplier_id, $request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Supplier updated successfully',
-            'data' => SupplierResource::make($supplier)
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Supplier updated successfully',
+                'data' => SupplierResource::make($updatedSupplier)
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -100,11 +98,18 @@ class SupplierManagementController extends Controller
             ], 404);
         }
 
-        $supplier->delete();
+        try {
+            $this->supplierService->deleteSupplier($supplier_id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Supplier deleted successfully'
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Supplier deleted successfully'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }
