@@ -19,9 +19,9 @@ class PurchaseResource extends JsonResource
             'total_amount' => $this->total_amount,
             'supplier' => [
                 'supplier_id' => $this->supplier_id,
-                'name' => $this->supplier->name,
-                'contact_info' => $this->supplier->contact_info,
-                'address' => $this->supplier->address
+                'name' => $this->supplier?->name,
+                'contact_info' => $this->supplier?->contact_info,
+                'address' => $this->supplier?->address
             ],
             'purchase_items' => $this->items->map(function ($item) {
                 return [
