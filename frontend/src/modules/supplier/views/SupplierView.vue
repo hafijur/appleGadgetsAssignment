@@ -45,7 +45,9 @@
             class="hover:bg-gray-50"
           >
             <td class="py-2 px-4 border-b border-gray-200">
-              {{ index + 1 }}
+              {{
+                meta.current_page * meta.per_page - meta.per_page + index + 1
+              }}
             </td>
             <td class="py-2 px-4 border-b border-gray-200">
               {{ supplier.name }}
