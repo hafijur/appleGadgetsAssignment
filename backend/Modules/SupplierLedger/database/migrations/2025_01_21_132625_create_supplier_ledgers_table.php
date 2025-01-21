@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('supplier_ledgers', function (Blueprint $table) {
             $table->id('ledger_id');
-            $table->foreignId('supplier_id')->constrained('suppliers')->cascadeOnDelete();
+            $table->foreignId('supplier_id')->constrained('suppliers','supplier_id')->cascadeOnDelete();
             $table->date('transaction_date');
             $table->decimal('debit', 10, 2)->default(0);
             $table->decimal('credit', 10, 2)->default(0);
