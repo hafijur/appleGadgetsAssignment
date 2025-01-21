@@ -14,6 +14,7 @@
     <!-- Product Form (Create/Edit) -->
     <ProductForm
       v-if="showForm"
+      :submitDisabled="submitDisabled"
       :initialProduct="selectedProduct || {}"
       :formMode="selectedProduct ? 'edit' : 'create'"
       @submit="handleFormSubmit"
@@ -123,6 +124,7 @@ export default {
   data() {
     return {
       products: [],
+      submitDisabled: false, // Disable submit button while submitting
       meta: {}, // Pagination meta data
       selectedProduct: null, // Used for editing a product
       showForm: false, // Toggle for showing the form
@@ -171,6 +173,7 @@ export default {
       this.showForm = true;
     },
     async handleFormSubmit(product) {
+      this.submitDisabled = true; // Disable the submit button
       if (this.selectedProduct) {
         try {
           const updatedProduct = await updateProduct(
@@ -227,9 +230,11 @@ export default {
             });
           }
           console.error("Error creating product:", error);
+
         }
       }
       this.showForm = false; // Hide the form
+      this.submitDisabled = false; // Reset selected product
     },
     async deleteProduct(productId) {
       try {

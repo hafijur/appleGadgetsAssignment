@@ -14,6 +14,7 @@
     <!-- Supplier Form (Create/Edit) -->
     <SupplierForm
       v-if="showForm"
+      :submitDisabled="submitDisabled"
       :initialSupplier="selectedSupplier || {}"
       :formMode="selectedSupplier ? 'edit' : 'create'"
       @submit="handleFormSubmit"
@@ -120,6 +121,7 @@ export default {
       meta: {}, // Pagination meta data
       selectedSupplier: null,
       showForm: false,
+      submitDisabled: false,
     };
   },
 
@@ -166,6 +168,7 @@ export default {
       this.selectedSupplier = null;
     },
     async handleFormSubmit(supplier) {
+      this.submitDisabled = true;
       if (this.selectedSupplier) {
         console.log("Updating supplier:", supplier); // Debugging
         try {
@@ -228,6 +231,7 @@ export default {
         }
       }
       this.closeForm();
+      this.submitDisabled = false;
     },
     async deleteSupplier(id) {
       try {

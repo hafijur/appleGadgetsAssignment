@@ -12,6 +12,7 @@
 
     <PurchaseForm
       v-if="showForm"
+      :submitDisabled="submitDisabled"
       :suppliers="suppliers"
       @submit="createPurchase"
       @close="closeForm"
@@ -42,6 +43,7 @@ export default {
       meta: {},
       suppliers: [], // Load from API
       showForm: false,
+      submitDisabled: false,
     };
   },
   async created() {
@@ -157,6 +159,7 @@ export default {
       }
     },
     async createPurchase(purchase) {
+      this.submitDisabled = true;
       try {
         const response = await createPurchase(purchase);
         if (this.purchases.length < this.meta.per_page) {
@@ -184,6 +187,7 @@ export default {
         }
         console.error("Error creating purchase:", error);
       }
+      this.submitDisabled = false;
     },
   },
 };

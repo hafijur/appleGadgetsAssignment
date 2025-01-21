@@ -7,7 +7,7 @@
       </button>
     </div>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent.stop="handleSubmit">
       <!-- Supplier Selection -->
 
       <div class="flex">

@@ -11,7 +11,7 @@
         ✕
       </button>
     </div>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent.stop="handleSubmit">
       <div class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium">Name</label>
@@ -60,8 +60,8 @@
         >
           Cancel
         </button>
-        <button
-          type="submit"
+        <button 
+          type="submit" :disabled="submitDisabled"
           class="py-2 px-4 border border-transparent outline-none text-sm text-white bg-indigo-600 hover:bg-indigo-700"
         >
           {{ formMode === "edit" ? "Update" : "Create" }}
@@ -82,6 +82,10 @@ export default {
     formMode: {
       type: String,
       default: "create", // "create" or "edit"
+    },
+    submitDisabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

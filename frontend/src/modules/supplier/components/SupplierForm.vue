@@ -11,7 +11,7 @@
         ✕
       </button>
     </div>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent.stop="handleSubmit">
       <div class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium">Name</label>
@@ -44,14 +44,14 @@
         </div>
       </div>
       <div class="mt-4 flex justify-end space-x-4">
-        <button
+        <button 
           type="button"
           @click="$emit('close')"
           class="py-2 px-4 border border-gray-300 outline-none text-sm bg-white hover:bg-gray-100"
         >
           Cancel
         </button>
-        <button
+        <button :disabled="submitDisabled"
           type="submit"
           class="py-2 px-4 border border-transparent outline-none text-sm text-white bg-indigo-600 hover:bg-indigo-700"
         >
@@ -73,6 +73,10 @@ export default {
     formMode: {
       type: String,
       default: "create", // "create" or "edit"
+    },
+    submitDisabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
