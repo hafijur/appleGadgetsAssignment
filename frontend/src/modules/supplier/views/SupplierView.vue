@@ -134,11 +134,22 @@ export default {
         this.suppliers = response.data;
         this.meta = response.meta;
       } catch (error) {
-        this.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.message,
-        });
+        if ("errors" in error.response.data) {
+          const messages = Object.values(error.response.data.errors)
+            .flat()
+            .join("\n");
+          this.$swal({
+            icon: "error",
+            title: "Oops..." + error.response.data.message,
+            text: messages,
+          });
+        } else {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
+        }
         console.error("Error fetching suppliers:", error);
       }
     },
@@ -169,11 +180,22 @@ export default {
           );
           if (index !== -1) this.suppliers[index] = updatedSupplier.data;
         } catch (error) {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
+          if ("errors" in error.response.data) {
+            const messages = Object.values(error.response.data.errors)
+              .flat()
+              .join("\n");
+            this.$swal({
+              icon: "error",
+              title: "Oops..." + error.response.data.message,
+              text: messages,
+            });
+          } else {
+            this.$swal({
+              icon: "error",
+              title: "Oops...",
+              text: error.response.data.message,
+            });
+          }
           console.error("Error updating supplier:", error);
         }
       } else {
@@ -186,11 +208,22 @@ export default {
             this.loadSuppliers();
           }
         } catch (error) {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
+          if ("errors" in error.response.data) {
+            const messages = Object.values(error.response.data.errors)
+              .flat()
+              .join("\n");
+            this.$swal({
+              icon: "error",
+              title: "Oops..." + error.response.data.message,
+              text: messages,
+            });
+          } else {
+            this.$swal({
+              icon: "error",
+              title: "Oops...",
+              text: error.response.data.message,
+            });
+          }
           console.error("Error creating supplier:", error);
         }
       }
@@ -201,11 +234,22 @@ export default {
         await deleteSupplier(id);
         this.suppliers = this.suppliers.filter((s) => s.supplier_id !== id);
       } catch (error) {
-        this.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.message,
-        });
+        if ("errors" in error.response.data) {
+          const messages = Object.values(error.response.data.errors)
+            .flat()
+            .join("\n");
+          this.$swal({
+            icon: "error",
+            title: "Oops..." + error.response.data.message,
+            text: messages,
+          });
+        } else {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
+        }
         console.error("Error deleting supplier:", error);
       }
     },
@@ -216,11 +260,22 @@ export default {
         this.suppliers = response.data;
         this.meta = response.meta;
       } catch (error) {
-        this.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.message,
-        });
+        if ("errors" in error.response.data) {
+          const messages = Object.values(error.response.data.errors)
+            .flat()
+            .join("\n");
+          this.$swal({
+            icon: "error",
+            title: "Oops..." + error.response.data.message,
+            text: messages,
+          });
+        } else {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
+        }
         console.error("Error fetching suppliers:", error);
       }
     },
@@ -230,11 +285,22 @@ export default {
         this.suppliers = response.data;
         this.meta = response.meta;
       } catch (error) {
-        this.$swal({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.message,
-        });
+        if ("errors" in error.response.data) {
+          const messages = Object.values(error.response.data.errors)
+            .flat()
+            .join("\n");
+          this.$swal({
+            icon: "error",
+            title: "Oops..." + error.response.data.message,
+            text: messages,
+          });
+        } else {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
+        }
         console.error("Error fetching suppliers:", error);
       }
     },
