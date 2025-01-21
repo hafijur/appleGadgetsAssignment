@@ -1,0 +1,11 @@
+{
+    "name": "SupplierLedger",
+    "alias": "supplierledger",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SupplierLedger\\Providers\\SupplierLedgerServiceProvider"
+    ],
+    "files": []
+}
