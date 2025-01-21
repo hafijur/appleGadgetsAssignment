@@ -11,8 +11,8 @@ class SupplierService implements SupplierContract
     {
         $query = Supplier::query();
 
-        if (!empty($filters['name'])) {
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        if (! empty($filters['name'])) {
+            $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 
         $suppliers = $query->paginate($page);
@@ -25,8 +25,8 @@ class SupplierService implements SupplierContract
                 'per_page' => $suppliers->perPage(),
                 'prev_page' => $suppliers->previousPageUrl(),
                 'next_page' => $suppliers->nextPageUrl(),
-                'last_page' => $suppliers->lastPage()
-            ]
+                'last_page' => $suppliers->lastPage(),
+            ],
         ];
     }
 
@@ -39,12 +39,14 @@ class SupplierService implements SupplierContract
     {
         $supplier = Supplier::findOrFail($supplierId);
         $supplier->update($data);
+
         return $supplier;
     }
 
     public function deleteSupplier(int $supplierId): bool
     {
         $supplier = Supplier::findOrFail($supplierId);
+
         return $supplier->delete();
     }
 }

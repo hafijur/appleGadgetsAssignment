@@ -16,5 +16,5 @@ use Modules\PurchaseManagement\Http\Controllers\PurchaseManagementController;
 
 Route::prefix('purchases')->controller(PurchaseManagementController::class)->group(function () {
     Route::get('/', 'index');
-    Route::post('/',  'store');
+    Route::post('/', 'store');
 });

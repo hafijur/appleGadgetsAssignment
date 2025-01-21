@@ -2,10 +2,10 @@
 
 namespace Modules\PurchaseManagement\Services;
 
+use Illuminate\Support\Facades\DB;
+use Modules\ProductManagement\Models\Product;
 use Modules\PurchaseManagement\Models\Purchase;
 use Modules\PurchaseManagement\Models\PurchaseItem;
-use Modules\ProductManagement\Models\Product;
-use Illuminate\Support\Facades\DB;
 use Modules\PurchaseManagement\Services\Contracts\PurchaseContract;
 
 class PurchaseService implements PurchaseContract
@@ -56,11 +56,11 @@ class PurchaseService implements PurchaseContract
     {
         $query = Purchase::query();
 
-        if (!empty($filters['supplier_id'])) {
+        if (! empty($filters['supplier_id'])) {
             $query->where('supplier_id', $filters['supplier_id']);
         }
 
-        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+        if (! empty($filters['start_date']) && ! empty($filters['end_date'])) {
             $query->whereBetween('purchase_date', [$filters['start_date'], $filters['end_date']]);
         }
 

@@ -2,8 +2,6 @@
 
 namespace Modules\ProductManagement\Services\Contracts;
 
-use Illuminate\Http\Request;
-
 interface ProductContract
 {
     public function listProducts(array $filters, int $page = 10): array;

@@ -26,7 +26,7 @@ class ProductController extends Controller
         return response()->json([
             'success' => true,
             'data' => ProductResource::collection($products['data']),
-            'meta' => $products['meta']
+            'meta' => $products['meta'],
         ]);
     }
 
@@ -37,12 +37,12 @@ class ProductController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => new ProductResource($product)
+                'data' => new ProductResource($product),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
@@ -51,10 +51,10 @@ class ProductController extends Controller
     {
         $product = Product::find($product_id);
 
-        if (!$product) {
+        if (! $product) {
             return response()->json([
                 'success' => false,
-                'message' => 'Product not found'
+                'message' => 'Product not found',
             ], 404);
         }
 
@@ -69,7 +69,7 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
@@ -78,10 +78,10 @@ class ProductController extends Controller
     {
         $product = Product::find($product_id);
 
-        if (!$product) {
+        if (! $product) {
             return response()->json([
                 'success' => false,
-                'message' => 'Product not found'
+                'message' => 'Product not found',
             ], 404);
         }
 
@@ -90,12 +90,12 @@ class ProductController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Product deleted successfully'
+                'message' => 'Product deleted successfully',
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }

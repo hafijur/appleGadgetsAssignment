@@ -16,7 +16,6 @@ class ProductSeeder extends Seeder
 
         $category_ids = Category::pluck('category_id');
 
-
         Product::insert([
             [
                 'name' => 'Laptop',
@@ -26,7 +25,7 @@ class ProductSeeder extends Seeder
                 'initial_stock_quantity' => 10,
                 'current_stock_quantity' => 10,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
                 'name' => 'T-shirt',
@@ -36,7 +35,7 @@ class ProductSeeder extends Seeder
                 'initial_stock_quantity' => 100,
                 'current_stock_quantity' => 100,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ],
             [
                 'name' => 'PHP Programming',
@@ -46,8 +45,8 @@ class ProductSeeder extends Seeder
                 'initial_stock_quantity' => 100,
                 'current_stock_quantity' => 100,
                 'created_at' => now(),
-                'updated_at' => now()
-            ]
+                'updated_at' => now(),
+            ],
 
         ]);
     }

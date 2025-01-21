@@ -3,7 +3,6 @@
 namespace Modules\ProductManagement\Services;
 
 use Modules\ProductManagement\Models\Product;
-use Illuminate\Support\Facades\DB;
 use Modules\ProductManagement\Services\Contracts\ProductContract;
 
 class ProductService implements ProductContract
@@ -12,15 +11,15 @@ class ProductService implements ProductContract
     {
         $query = Product::query();
 
-        if (!empty($filters['name'])) {
-            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        if (! empty($filters['name'])) {
+            $query->where('name', 'like', '%'.$filters['name'].'%');
         }
 
-        if (!empty($filters['SKU'])) {
-            $query->where('SKU', 'like', '%' . $filters['SKU'] . '%');
+        if (! empty($filters['SKU'])) {
+            $query->where('SKU', 'like', '%'.$filters['SKU'].'%');
         }
 
-        if (!empty($filters['category_id'])) {
+        if (! empty($filters['category_id'])) {
             $query->where('category_id', $filters['category_id']);
         }
 
@@ -35,13 +34,14 @@ class ProductService implements ProductContract
                 'last_page' => $paginated->lastPage(),
                 'prev_page_url' => $paginated->previousPageUrl(),
                 'next_page_url' => $paginated->nextPageUrl(),
-            ]
+            ],
         ];
     }
 
     public function createProduct(array $data): object
     {
         $data['current_stock_quantity'] = $data['initial_stock_quantity'];
+
         return Product::create($data);
     }
 

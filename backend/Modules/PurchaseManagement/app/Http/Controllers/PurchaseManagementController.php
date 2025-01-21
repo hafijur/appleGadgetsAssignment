@@ -34,8 +34,8 @@ class PurchaseManagementController extends Controller
                 'total' => $purchases->total(),
                 'prev_page' => $purchases->previousPageUrl(),
                 'next_page' => $purchases->nextPageUrl(),
-                'last_page' => $purchases->lastPage()
-            ]
+                'last_page' => $purchases->lastPage(),
+            ],
         ]);
     }
 
@@ -53,13 +53,13 @@ class PurchaseManagementController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Purchase created successfully',
-                'data' => $purchase->load('items')
+                'data' => $purchase->load('items'),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to create purchase',
-                'error' => $th->getMessage()
+                'error' => $th->getMessage(),
             ], 500);
         }
     }

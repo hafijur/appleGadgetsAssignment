@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\SupplierManagement\Http\Controllers\SupplierManagementController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

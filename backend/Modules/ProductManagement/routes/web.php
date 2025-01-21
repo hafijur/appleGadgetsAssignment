@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\ProductManagement\Http\Controllers\ProductManagementController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -29,7 +29,7 @@ class SupplierManagementController extends Controller
         return response()->json([
             'message' => 'Suppliers retrieved successfully',
             'data' => SupplierResource::collection($suppliers['data']),
-            'meta' => $suppliers['meta']
+            'meta' => $suppliers['meta'],
         ]);
     }
 
@@ -44,12 +44,12 @@ class SupplierManagementController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Supplier created successfully',
-                'data' => SupplierResource::make($supplier)
+                'data' => SupplierResource::make($supplier),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
@@ -61,10 +61,10 @@ class SupplierManagementController extends Controller
     {
         $supplier = Supplier::find($supplier_id);
 
-        if (!$supplier) {
+        if (! $supplier) {
             return response()->json([
                 'success' => false,
-                'message' => 'Supplier not found'
+                'message' => 'Supplier not found',
             ], 404);
         }
 
@@ -74,12 +74,12 @@ class SupplierManagementController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Supplier updated successfully',
-                'data' => SupplierResource::make($updatedSupplier)
+                'data' => SupplierResource::make($updatedSupplier),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }
@@ -91,10 +91,10 @@ class SupplierManagementController extends Controller
     {
         $supplier = Supplier::find($supplier_id);
 
-        if (!$supplier) {
+        if (! $supplier) {
             return response()->json([
                 'success' => false,
-                'message' => 'Supplier not found'
+                'message' => 'Supplier not found',
             ], 404);
         }
 
@@ -103,12 +103,12 @@ class SupplierManagementController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Supplier deleted successfully'
+                'message' => 'Supplier deleted successfully',
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'message' => $th->getMessage()
+                'message' => $th->getMessage(),
             ], 500);
         }
     }

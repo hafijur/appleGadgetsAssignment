@@ -15,8 +15,8 @@ use Modules\ProductManagement\Http\Controllers\ProductController;
 */
 
 Route::prefix('products')->controller(ProductController::class)->group(function () {
-    Route::post('/',  'store');
-    Route::put('/{product_id}',  'update');
+    Route::post('/', 'store');
+    Route::put('/{product_id}', 'update');
     Route::delete('/{product_id}', 'destroy');
     Route::get('/', 'index');
 });

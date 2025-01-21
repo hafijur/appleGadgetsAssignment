@@ -66,7 +66,7 @@
                 @click="addItem(product)"
                 class="p-2 hover:bg-gray-100 cursor-pointer"
               >
-                {{ product.name }} (₹{{ product.price }})
+                {{ product.name }} ({{ product.price }})
               </li>
             </ul>
           </div>
@@ -93,7 +93,7 @@
                     min="1"
                   />
                 </td>
-                <td class="py-2 px-4 border-b">₹{{ item.unit_price }}</td>
+                <td class="py-2 px-4 border-b">{{ item.unit_price }}</td>
                 <td class="py-2 px-4 border-b">
                   <button
                     @click="removeItem(index)"

@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'success' => false,
                     'error' => 50001,
-                    'message' => $exception->getMessage() . '| Line: ' . $exception->getLine() . '| File: ' . $exception->getFile(),
+                    'message' => $exception->getMessage().'| Line: '.$exception->getLine().'| File: '.$exception->getFile(),
                 ]);
             }
         }

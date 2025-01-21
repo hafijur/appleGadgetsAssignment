@@ -5,15 +5,14 @@ namespace Modules\ProductManagement\Http\Requests;
 use App\Traits\RequestValidationError;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductCreateRequest extends FormRequest
 {
     use RequestValidationError;
+
     /**
      * Get the validation rules that apply to the request.
      */
-
     public function rules(): array
     {
         return [
@@ -21,7 +20,7 @@ class ProductCreateRequest extends FormRequest
             'SKU' => 'required|string|unique:products,SKU|max:100',
             'price' => 'required|numeric|min:0',
             'initial_stock_quantity' => 'required|integer|min:0',
-            'category_id' => 'nullable|exists:categories,category_id'
+            'category_id' => 'nullable|exists:categories,category_id',
         ];
     }
 
@@ -52,7 +51,7 @@ class ProductCreateRequest extends FormRequest
             'initial_stock_quantity.required' => 'Initial stock quantity is required',
             'initial_stock_quantity.integer' => 'Initial stock quantity must be an integer',
             'initial_stock_quantity.min' => 'Initial stock quantity must be at least 0',
-            'category_id.exists' => 'Category does not exist'
+            'category_id.exists' => 'Category does not exist',
         ];
     }
 
@@ -66,7 +65,7 @@ class ProductCreateRequest extends FormRequest
             'SKU' => 'product SKU',
             'price' => 'product price',
             'initial_stock_quantity' => 'initial stock quantity',
-            'category_id' => 'category'
+            'category_id' => 'category',
         ];
     }
 }

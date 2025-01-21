@@ -4,7 +4,6 @@ namespace Modules\PurchaseManagement\Transformers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Modules\ProductManagement\Models\Product;
 
 class PurchaseResource extends JsonResource
 {
@@ -21,7 +20,7 @@ class PurchaseResource extends JsonResource
                 'supplier_id' => $this->supplier_id,
                 'name' => $this->supplier?->name,
                 'contact_info' => $this->supplier?->contact_info,
-                'address' => $this->supplier?->address
+                'address' => $this->supplier?->address,
             ],
             'purchase_items' => $this->items->map(function ($item) {
                 return [
@@ -33,13 +32,13 @@ class PurchaseResource extends JsonResource
                         'SKU' => $item->product->SKU,
                         'initial_stock_quantity' => $item->product->initial_stock_quantity,
                         'current_stock_quantity' => $item->product->current_stock_quantity,
-                        'category_name' => $item->product->category?->name
+                        'category_name' => $item->product->category?->name,
                     ],
                     'quantity' => $item->quantity,
                     'unit_price' => $item->unit_price,
-                    'total_price' => $item->total_price
+                    'total_price' => $item->total_price,
                 ];
-            })
+            }),
         ];
     }
 }

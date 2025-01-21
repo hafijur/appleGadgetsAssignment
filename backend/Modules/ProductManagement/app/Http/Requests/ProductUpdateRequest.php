@@ -8,18 +8,19 @@ use Illuminate\Foundation\Http\FormRequest;
 class ProductUpdateRequest extends FormRequest
 {
     use RequestValidationError;
+
     /**
      * Get the validation rules that apply to the request.
      */
-
     public function rules(): array
     {
         $product_id = request()->product_id;
+
         return [
             'name' => 'sometimes|required|string|max:255',
             'SKU' => "sometimes|required|string|unique:products,SKU,$product_id,product_id|max:100",
             'price' => 'sometimes|required|numeric|min:0',
-            'category_id' => 'nullable|exists:categories,category_id'
+            'category_id' => 'nullable|exists:categories,category_id',
         ];
     }
 
@@ -47,10 +48,9 @@ class ProductUpdateRequest extends FormRequest
             'price.required' => 'Product price is required',
             'price.numeric' => 'Product price must be a number',
             'price.min' => 'Product price must be at least 0',
-            'category_id.exists' => 'Category does not exist'
+            'category_id.exists' => 'Category does not exist',
         ];
     }
-
 
     /**
      * Get custom attributes for validator errors.
@@ -61,7 +61,7 @@ class ProductUpdateRequest extends FormRequest
             'name' => 'product name',
             'SKU' => 'product SKU',
             'price' => 'product price',
-            'category_id' => 'category'
+            'category_id' => 'category',
         ];
     }
 }

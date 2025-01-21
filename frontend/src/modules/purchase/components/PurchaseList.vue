@@ -27,7 +27,7 @@
           <td class="py-2 px-4">
             {{ purchase.supplier?.name || "Unknown Supplier" }}
           </td>
-          <td class="py-2 px-4">₹{{ purchase.total_amount }}</td>
+          <td class="py-2 px-4">{{ purchase.total_amount }}</td>
           <td class="py-2 px-4">
             <button
               @click="toggleDetails(purchase.purchase_id)"
@@ -63,8 +63,8 @@
                   >
                     <td class="py-2 px-4">{{ item.product.name }}</td>
                     <td class="py-2 px-4">{{ item.quantity }}</td>
-                    <td class="py-2 px-4">₹{{ item.unit_price }}</td>
-                    <td class="py-2 px-4">₹{{ item.total_price }}</td>
+                    <td class="py-2 px-4">{{ item.unit_price }}</td>
+                    <td class="py-2 px-4">{{ item.total_price }}</td>
                   </tr>
                 </tbody>
               </table>

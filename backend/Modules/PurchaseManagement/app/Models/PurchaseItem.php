@@ -3,7 +3,6 @@
 namespace Modules\PurchaseManagement\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\ProductManagement\Models\Product;
 
 // use Modules\PurchaseManagement\Database\Factories\PurchaseItemFactory;
