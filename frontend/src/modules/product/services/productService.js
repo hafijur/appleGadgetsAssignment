@@ -11,10 +11,8 @@ const api = axios.create({
 export const fetchProducts = async (page = 1, limit = 10) => {
     try {
         const response = await api.get(`/products?page=${page}&limit=${limit}`); // Adjust the API endpoint if needed
-        console.log('response:', response.data);
         return response.data;
     } catch (error) {
-        console.error('Error fetching products:', error);
         throw error;
     }
 };
@@ -34,18 +32,15 @@ export const deleteProduct = async (productId) => {
         const response = await api.delete(`/products/${productId}`);
         return response.data;
     } catch (error) {
-        console.error('Error deleting product:', error);
         throw error;
     }
 };
 
 export const updateProduct = async (productId, updatedProduct) => {
     try {
-        console.log('productId:', productId);
         const response = await api.put(`/products/${productId}`, updatedProduct);
         return response.data;
     } catch (error) {
-        console.error('Error updating product:', error);
         throw error;
     }
 };

@@ -139,6 +139,11 @@ export default {
         this.products = response.data; // Assuming API response has a "data" field
         this.meta = response.meta; // Assuming API response has a "meta" field
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching products:", error);
       }
     },
@@ -157,7 +162,6 @@ export default {
     async handleFormSubmit(product) {
       if (this.selectedProduct) {
         try {
-          console.log("Updating product:", product);
           const updatedProduct = await updateProduct(
             product.product_id,
             product
@@ -167,6 +171,11 @@ export default {
           );
           if (index !== -1) this.products[index] = updatedProduct.data; // Update the product in the list
         } catch (error) {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
           console.error("Error updating product:", error);
         }
       } else {
@@ -179,6 +188,11 @@ export default {
             this.loadProducts();
           }
         } catch (error) {
+          this.$swal({
+            icon: "error",
+            title: "Oops...",
+            text: error.response.data.message,
+          });
           console.error("Error creating product:", error);
         }
       }
@@ -191,6 +205,11 @@ export default {
           (product) => product.product_id !== productId
         ); // Remove from the list
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error deleting product:", error);
       }
     },
@@ -200,6 +219,11 @@ export default {
         this.products = response.data;
         this.meta = response.meta;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching products:", error);
       }
     },
@@ -209,6 +233,11 @@ export default {
         this.products = response.data;
         this.meta = response.meta;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching products:", error);
       }
     },

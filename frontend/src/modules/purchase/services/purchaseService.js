@@ -32,7 +32,6 @@ export async function createPurchase(purchase) {
 export async function fetchPurchases(page = 1, limit = 10) {
     try {
         const response = await api.get(`/purchases?page=${page}&limit=${limit}`);
-        console.log("purchases response:", response.data);
         return response.data;
     } catch (error) {
         console.error("Error fetching purchases:", error);

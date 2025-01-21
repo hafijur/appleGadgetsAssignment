@@ -56,6 +56,11 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching purchases:", error);
       }
     },
@@ -65,6 +70,11 @@ export default {
         const response = await fetchSuppliers();
         this.suppliers = response.data;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching suppliers:", error);
       }
     },
@@ -80,6 +90,11 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching purchases:", error);
       }
     },
@@ -89,6 +104,11 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error fetching purchases:", error);
       }
     },
@@ -102,6 +122,11 @@ export default {
         }
         this.closeForm();
       } catch (error) {
+        this.$swal({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
         console.error("Error creating purchase:", error);
       }
     },
