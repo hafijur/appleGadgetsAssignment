@@ -12,7 +12,7 @@ class SupplierService implements SupplierContract
         $query = Supplier::query();
 
         if (! empty($filters['name'])) {
-            $query->where('name', 'like', '%'.$filters['name'].'%');
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
 
         $suppliers = $query->paginate($page);
@@ -46,6 +46,9 @@ class SupplierService implements SupplierContract
     public function deleteSupplier(int $supplierId): bool
     {
         $supplier = Supplier::findOrFail($supplierId);
+        if ($supplier->purchases()->exists()) {
+            throw new \Exception('Supplier has purchases, cannot delete');
+        }
 
         return $supplier->delete();
     }
