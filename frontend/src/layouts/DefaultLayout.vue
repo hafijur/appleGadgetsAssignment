@@ -30,6 +30,14 @@
               Purchases
             </router-link>
           </li>
+          <li>
+            <router-link
+              to="/supplier-ledgers"
+              class="block px-4 py-2 hover:bg-gray-700"
+            >
+              Supplier Ledgers
+            </router-link>
+          </li>
         </ul>
       </nav>
     </aside>

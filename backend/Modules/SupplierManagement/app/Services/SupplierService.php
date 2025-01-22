@@ -7,15 +7,31 @@ use Modules\SupplierManagement\Services\Contracts\SupplierContract;
 
 class SupplierService implements SupplierContract
 {
-    public function listSuppliers(array $filters, $page = 10): array
+    public function listSuppliers(array $filters): array
     {
         $query = Supplier::query();
 
         if (! empty($filters['name'])) {
             $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
+        $suppliers = [];
 
-        $suppliers = $query->paginate($page);
+        if (!empty($filters['limit']) && $filters['limit'] === 'all') {
+            $suppliers = $query->get();
+            return [
+                'data' => $suppliers,
+                'meta' => [
+                    'total' => $suppliers->count(),
+                    'current_page' => 1,
+                    'per_page' => $suppliers->count(),
+                    'prev_page' => null,
+                    'next_page' => null,
+                    'last_page' => null,
+                ],
+            ];
+        } else {
+            $suppliers = $query->paginate($filters['limit'] ?? 10);
+        }
 
         return [
             'data' => $suppliers->items(),

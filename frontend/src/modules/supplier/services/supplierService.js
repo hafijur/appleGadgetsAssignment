@@ -8,9 +8,15 @@ const api = axios.create({
     baseURL: apiBaseUrl,
 });
 
-export async function fetchSuppliers(name = '', page = 1, limit = 10) {
+export async function fetchSuppliers(page = 1, limit = 10, filters = {}) {
     try {
-        const response = await api.get(`/suppliers?page=${page}&limit=${limit}`);
+        const response = await api.get(`/suppliers`, {
+            params: {
+                page,
+                limit,
+                ...filters,
+            },
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching suppliers:", error);

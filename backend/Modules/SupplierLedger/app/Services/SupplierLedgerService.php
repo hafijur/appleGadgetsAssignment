@@ -37,13 +37,20 @@ class SupplierLedgerService implements Contracts\SupplierLedgerContract
      * @param array $filters
      * @return array
      */
-    public function listSupplierLedger(int $supplierId, array $filters = []): array
+    public function listSupplierLedger(array $filters = []): array
     {
-        $query = SupplierLedger::where('supplier_id', $supplierId);
+        $query = SupplierLedger::query();
+
+        if (!empty($filters['supplier_id'])) {
+            $query->where('supplier_id', $filters['supplier_id']);
+        }
 
         if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
             $query->whereBetween('transaction_date', [$filters['start_date'], $filters['end_date']]);
         }
+
+        $query->with('supplier');
+
 
         $entries = $query->orderBy('transaction_date', 'asc')->paginate(10);
 

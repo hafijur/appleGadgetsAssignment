@@ -40,10 +40,10 @@ class SupplierLedgerController extends Controller
     /**
      * List supplier ledger entries.
      */
-    public function index(Request $request, $supplier_id)
+    public function index(Request $request)
     {
-        $filters = $request->only(['start_date', 'end_date']);
-        $entries = $this->supplierLedgerService->listSupplierLedger($supplier_id, $filters);
+        $filters = $request->only(['start_date', 'end_date', 'supplier_id']);
+        $entries = $this->supplierLedgerService->listSupplierLedger($filters);
 
         return response()->json([
             'success' => true,

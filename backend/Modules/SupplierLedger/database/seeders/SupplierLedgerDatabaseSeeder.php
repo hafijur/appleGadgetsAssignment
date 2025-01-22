@@ -11,7 +11,7 @@ class SupplierLedgerDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(SupplierLedgerSeeder::class);
+        // $this->call(SupplierLedgerSeeder::class);
 
     }
 }

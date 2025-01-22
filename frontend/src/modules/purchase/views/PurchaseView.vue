@@ -80,7 +80,7 @@ export default {
     async loadSuppliers() {
       try {
         // Load suppliers from your supplier service
-        const response = await fetchSuppliers();
+        const response = await fetchSuppliers(1, "all");
         this.suppliers = response.data;
       } catch (error) {
         if ("errors" in error.response.data) {
@@ -162,11 +162,7 @@ export default {
       this.submitDisabled = true;
       try {
         const response = await createPurchase(purchase);
-        if (this.purchases.length < this.meta.per_page) {
-          this.purchases.push(response.data);
-        } else {
-          this.loadPurchases();
-        }
+        this.loadPurchases();
         this.closeForm();
       } catch (error) {
         if ("errors" in error.response.data) {

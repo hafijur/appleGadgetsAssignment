@@ -5,6 +5,7 @@ import ProductList from '@/components/ProductList.vue';
 import productRoutes from "@/modules/product/router";
 import supplierRoutes from "@/modules/supplier/router";
 import purchaseRoutes from "@/modules/purchase/router";
+import supplierLedgerRoutes from "@/modules/supplier_ledger/router";
 
 const routes = [
     {
@@ -15,7 +16,8 @@ const routes = [
 
     ...productRoutes,
     ...supplierRoutes,
-    ...purchaseRoutes
+    ...purchaseRoutes,
+    ...supplierLedgerRoutes
 ];
 
 const router = createRouter({

@@ -136,7 +136,7 @@ export default {
     return {
       form: {
         supplier_id: null,
-        purchase_date: "",
+        purchase_date: this.getCurrentDate(),
         items: [],
       },
       searchQuery: "",

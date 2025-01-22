@@ -12,9 +12,9 @@ class PurchaseManagementDatabaseSeeder extends Seeder
     public function run(): void
     {
         // $this->call([]);
-        $this->call([
-            PurchaseSeeder::class,
-            PurchaseItemSeeder::class,
-        ]);
+        // $this->call([
+        //     PurchaseSeeder::class,
+        //     PurchaseItemSeeder::class,
+        // ]);
     }
 }

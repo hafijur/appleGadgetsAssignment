@@ -260,7 +260,7 @@ export default {
     async nextPage() {
       try {
         console.log("Next page clicked", this.meta.current_page + 1);
-        const response = await fetchSuppliers("", this.meta.current_page + 1);
+        const response = await fetchSuppliers(this.meta.current_page + 1);
         this.suppliers = response.data;
         this.meta = response.meta;
       } catch (error) {
@@ -285,7 +285,7 @@ export default {
     },
     async prevPage() {
       try {
-        const response = await fetchSuppliers("", this.meta.current_page - 1);
+        const response = await fetchSuppliers(this.meta.current_page - 1);
         this.suppliers = response.data;
         this.meta = response.meta;
       } catch (error) {

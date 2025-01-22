@@ -15,6 +15,6 @@ use Modules\SupplierLedger\Http\Controllers\SupplierLedgerController;
 */
 
 Route::prefix('supplier-ledgers')->controller(SupplierLedgerController::class)->group(function () {
-    Route::get('/{supplier_id}',  'index');
+    Route::get('/',  'index');
     Route::post('/',  'store');
 });

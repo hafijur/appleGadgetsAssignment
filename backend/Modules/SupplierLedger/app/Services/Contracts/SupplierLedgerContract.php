@@ -19,5 +19,5 @@ interface SupplierLedgerContract
      * @param array $filters
      * @return array
      */
-    public function listSupplierLedger(int $supplierId, array $filters = []): array;
+    public function listSupplierLedger(array $filters = []): array;
 }
