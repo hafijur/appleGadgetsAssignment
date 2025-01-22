@@ -172,7 +172,6 @@ export default {
         }
       } else {
         try {
-          product.SKU = "";
           const newProduct = await createProduct(product);
           this.loadProducts();
         } catch (error) {
@@ -189,22 +188,7 @@ export default {
           (product) => product.product_id !== productId
         ); // Remove from the list
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showError(error.response.data);
         console.error("Error deleting product:", error);
       }
     },
@@ -214,22 +198,7 @@ export default {
         this.products = response.data;
         this.meta = response.meta;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showError(error.response.data);
         console.error("Error fetching products:", error);
       }
     },
@@ -239,22 +208,7 @@ export default {
         this.products = response.data;
         this.meta = response.meta;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showError(error.response.data);
         console.error("Error fetching products:", error);
       }
     },
