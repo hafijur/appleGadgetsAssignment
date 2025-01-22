@@ -9,8 +9,8 @@
       <thead class="bg-gray-50">
         <tr>
           <th class="py-2 px-4 border-b text-left">SL</th>
-          <th class="py-2 px-4 border-b text-left">Date</th>
           <th class="py-2 px-4 border-b text-left">Supplier</th>
+          <th class="py-2 px-4 border-b text-left">Purchase Date</th>
           <th class="py-2 px-4 border-b text-left">Total Amount</th>
           <th class="py-2 px-4 border-b">Actions</th>
         </tr>
@@ -21,12 +21,14 @@
           :key="purchase.purchase_id"
           class="border-b"
         >
+        
           <td class="py-2 px-4">
             {{ meta.current_page * meta.per_page - meta.per_page + index + 1 }}</td>
-          <td class="py-2 px-4">{{ purchase.purchase_date }}</td>
-          <td class="py-2 px-4">
+            <td class="py-2 px-4">
             {{ purchase.supplier?.name || "Unknown Supplier" }}
           </td>
+          <td class="py-2 px-4">{{ purchase.purchase_date }}</td>
+
           <td class="py-2 px-4">{{ purchase.total_amount }}</td>
           <td class="py-2 px-4">
             <button

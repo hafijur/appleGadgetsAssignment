@@ -93,7 +93,14 @@
                     min="1"
                   />
                 </td>
-                <td class="py-2 px-4 border-b">{{ item.unit_price }}</td>
+                <td class="py-2 px-4 border-b">
+                  <input
+                    v-model.number="item.unit_price"
+                    type="number"
+                    class="w-16 border-gray-300 outline-none"
+                    min="1"
+                  />
+                </td>
                 <td class="py-2 px-4 border-b">
                   <button
                     @click="removeItem(index)"
