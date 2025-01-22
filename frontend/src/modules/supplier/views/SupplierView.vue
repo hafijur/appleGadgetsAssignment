@@ -21,6 +21,25 @@
       @close="closeForm"
     />
 
+    <!-- supplier filter by name -->
+
+    <div class="flex space-x-4 mt-4">
+      <div>
+        <label for="supplier" class="block text-sm font-medium">Supplier Name</label>
+        <input
+          type="text"
+          v-model="filters.name"
+          class="py-2 px-3 border rounded"
+        />
+      </div>
+      <button
+        @click="filterSupplier"
+        class="px-4 bg-indigo-600 text-white outline-none hover:bg-indigo-700"
+      >
+        Filter
+      </button>
+    </div>
+
     <!-- Supplier Table -->
     <div class="overflow-x-auto">
       <table class="min-w-full bg-white border border-gray-200">
@@ -122,6 +141,9 @@ export default {
       selectedSupplier: null,
       showForm: false,
       submitDisabled: false,
+      filters: {
+        name: "",
+      },
     };
   },
 
@@ -129,6 +151,21 @@ export default {
     await this.loadSuppliers();
   },
   methods: {
+   async filterSupplier() {
+
+     if (this.filters.name === "") {
+       return;
+     }
+
+    try {
+      const response = await fetchSuppliers(1, 10, this.filters);
+      this.suppliers = response.data;
+      this.meta = response.meta;
+    } catch (error) {
+      this.showError(error.response.data);
+      console.error("Error fetching suppliers:", error);
+    }
+    },
     async loadSuppliers() {
       try {
         const response = await fetchSuppliers();
