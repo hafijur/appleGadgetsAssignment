@@ -58,22 +58,7 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showErrors(error.response.data);
         console.error("Error fetching purchases:", error);
       }
     },
@@ -83,22 +68,7 @@ export default {
         const response = await fetchSuppliers(1, "all");
         this.suppliers = response.data;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showErrors(error.response.data);
         console.error("Error fetching suppliers:", error);
       }
     },
@@ -114,22 +84,7 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showErrors(error.response.data);
         console.error("Error fetching purchases:", error);
       }
     },
@@ -139,22 +94,7 @@ export default {
         this.purchases = response.data;
         this.meta = response.meta;
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showErrors(error.response.data);
         console.error("Error fetching purchases:", error);
       }
     },
@@ -165,22 +105,7 @@ export default {
         this.loadPurchases();
         this.closeForm();
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showErrors(error.response.data);
         console.error("Error creating purchase:", error);
       }
       this.submitDisabled = false;

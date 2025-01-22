@@ -141,22 +141,7 @@ export default {
         this.products = response.data; // Assuming API response has a "data" field
         this.meta = response.meta; // Assuming API response has a "meta" field
       } catch (error) {
-        if ("errors" in error.response.data) {
-          const messages = Object.values(error.response.data.errors)
-            .flat()
-            .join("\n");
-          this.$swal({
-            icon: "error",
-            title: "Oops..." + error.response.data.message,
-            text: messages,
-          });
-        } else {
-          this.$swal({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.message,
-          });
-        }
+        this.showError(error.response.data);
         console.error("Error fetching products:", error);
       }
     },
@@ -180,57 +165,18 @@ export default {
             product.product_id,
             product
           );
-          const index = this.products.findIndex(
-            (p) => p.product_id === product.product_id
-          );
-          if (index !== -1) this.products[index] = updatedProduct.data; // Update the product in the list
+          this.loadProducts();
         } catch (error) {
-          if ("errors" in error.response.data) {
-            const messages = Object.values(error.response.data.errors)
-              .flat()
-              .join("\n");
-            this.$swal({
-              icon: "error",
-              title: "Oops..." + error.response.data.message,
-              text: messages,
-            });
-          } else {
-            this.$swal({
-              icon: "error",
-              title: "Oops...",
-              text: error.response.data.message,
-            });
-          }
+          this.showError(error.response.data);
           console.error("Error updating product:", error);
         }
       } else {
-        // Create product
         try {
+          product.SKU = "";
           const newProduct = await createProduct(product);
-          if (this.products < this.meta.per_page) {
-            this.products.push(newProduct.data);
-          } else {
-            this.loadProducts();
-          }
+          this.loadProducts();
         } catch (error) {
-          if ("errors" in error.response.data) {
-            const messages = Object.values(error.response.data.errors)
-              .flat()
-              .join("\n");
-            this.$swal({
-              icon: "error",
-              title: "Oops..." + error.response.data.message,
-              text: messages,
-            });
-          } else {
-            this.$swal({
-              icon: "error",
-              title: "Oops...",
-              text: error.response.data.message,
-            });
-          }
-          console.error("Error creating product:", error);
-
+          this.showError(error.response.data);
         }
       }
       this.showForm = false; // Hide the form
