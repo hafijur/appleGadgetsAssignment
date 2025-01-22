@@ -22,7 +22,7 @@ class SupplierLedgerSeeder extends Seeder
                 'balance' => 100,
                 'remarks' => 'Initial balance',
                 'transaction_date' => now(),
-                'ceated_at' => now(),
+                'created_at' => now(),
                 'updated_at' => now()
             ],
             [
@@ -32,7 +32,7 @@ class SupplierLedgerSeeder extends Seeder
                 'balance' => 50,
                 'remarks' => 'Payment',
                 'transaction_date' => now(),
-                'ceated_at' => now(),
+                'created_at' => now(),
                 'updated_at' => now()
             ],
             [
@@ -42,7 +42,7 @@ class SupplierLedgerSeeder extends Seeder
                 'balance' => 0,
                 'remarks' => 'Payment',
                 'transaction_date' => now(),
-                'ceated_at' => now(),
+                'created_at' => now(),
                 'updated_at' => now()
             ],
         ]);

@@ -4,6 +4,7 @@ namespace Modules\SupplierLedger\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\SupplierLedger\Http\Requests\SupplierLedgerRequest;
 use Modules\SupplierLedger\Services\Contracts\SupplierLedgerContract;
 
 class SupplierLedgerController extends Controller
@@ -18,32 +19,31 @@ class SupplierLedgerController extends Controller
     /**
      * Add a ledger entry.
      */
-    public function store(Request $request)
+    public function store(SupplierLedgerRequest $request)
     {
-        $validated = $request->validate([
-            'supplier_id' => 'required|exists:suppliers,supplier_id',
-            'transaction_date' => 'required|date',
-            'debit' => 'nullable|numeric|min:0',
-            'credit' => 'nullable|numeric|min:0',
-            'remarks' => 'nullable|string|max:255',
-        ]);
+        try {
+            $ledgerEntry = $this->supplierLedgerService->addLedgerEntry($request->validated());
 
-        $ledgerEntry = $this->supplierLedgerService->addLedgerEntry($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Ledger entry added successfully',
-            'data' => $ledgerEntry,
-        ], 201);
+            return response()->json([
+                'success' => true,
+                'message' => 'Ledger entry added successfully',
+                'data' => $ledgerEntry,
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add ledger entry',
+            ], 500);
+        }
     }
 
     /**
      * List supplier ledger entries.
      */
-    public function index(Request $request, $supplierId)
+    public function index(Request $request, $supplier_id)
     {
         $filters = $request->only(['start_date', 'end_date']);
-        $entries = $this->supplierLedgerService->listSupplierLedger($supplierId, $filters);
+        $entries = $this->supplierLedgerService->listSupplierLedger($supplier_id, $filters);
 
         return response()->json([
             'success' => true,
