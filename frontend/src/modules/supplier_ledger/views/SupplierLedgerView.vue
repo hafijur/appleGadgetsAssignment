@@ -6,7 +6,7 @@
 
     <SupplierLedgerForm @addEntry="createLedgerEntry" :suppliers="suppliers" />
     <!-- Ledger Entry Form -->
-    <div class="flex space-x-4 mt-4">
+    <div class="flex space-x-4 mt-4 items-center">
       <div>
         <label for="start_date" class="block text-sm font-medium"
           >Start Date</label
@@ -27,7 +27,7 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div>
         <label for="supplier" class="block text-sm font-medium">Supplier</label>
         <select
           v-model="filters.supplier_id"
@@ -47,7 +47,7 @@
 
       <button
         @click="filterLedger"
-        class="px-4 bg-indigo-600 text-white outline-none hover:bg-indigo-700"
+        class="h-[42px] px-4 bg-indigo-600 text-white outline-none hover:bg-indigo-700 self-end"
       >
         Filter
       </button>
