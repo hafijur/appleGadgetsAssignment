@@ -155,10 +155,6 @@ export default {
   },
   methods: {
     async filterSupplier() {
-      if (this.filters.name === "") {
-        return;
-      }
-
       try {
         const response = await fetchSuppliers(1, 10, this.filters);
         this.suppliers = response.data;
