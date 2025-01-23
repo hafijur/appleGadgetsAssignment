@@ -62,7 +62,7 @@ The backend is built using **Laravel 11** with **PHP 8.2**.
    cd frontend
    ```
 
-2. Update the `.env` file for the API base URL:
+2. Update or create the `.env` file for the API base URL:
 
    ```env
    VITE_API_BASE_URL=http://127.0.0.1:8000/api
