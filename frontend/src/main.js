@@ -11,8 +11,8 @@ import dateMixins from './mixins/dataMixins';
 import utilMixins from './mixins/utilMixins';
 
 const app = createApp(App);
-app.use(VueSweetalert2);
 
+app.use(VueSweetalert2);
 app.use(router);
 // app.use(store);
 

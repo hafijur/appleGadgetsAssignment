@@ -2,7 +2,9 @@
   <div class="flex h-screen">
     <aside class="w-64 bg-gray-800 text-white flex-shrink-0">
       <div class="p-6">
-        <h2 class="text-2xl font-bold">My App</h2>
+        <h2 class="text-2xl font-bold">
+          <router-link to="/products" class="text-white"> My App </router-link>
+        </h2>
       </div>
       <nav>
         <ul>
@@ -43,8 +45,9 @@
     </aside>
 
     <div class="flex-1 flex flex-col">
-      <header class="bg-gray-100 p-4 shadow">
+      <header class="bg-gray-100 p-4 shadow flex justify-between items-center">
         <h1 class="text-lg font-bold">Dashboard</h1>
+        <Logout />
       </header>
 
       <main class="flex-1 p-6 bg-gray-50 overflow-auto">
@@ -55,7 +58,11 @@
 </template>
 
 <script>
+import Logout from "@/components/Logout.vue";
 export default {
   name: "DefaultLayout",
+  components: {
+    Logout,
+  },
 };
 </script>
