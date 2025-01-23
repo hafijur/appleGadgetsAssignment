@@ -14,7 +14,7 @@ use Modules\SupplierManagement\Http\Controllers\SupplierManagementController;
  *
 */
 
-Route::prefix('suppliers')->controller(SupplierManagementController::class)->group(function () {
+Route::prefix('suppliers')->controller(SupplierManagementController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::put('/{supplier_id}', 'update');

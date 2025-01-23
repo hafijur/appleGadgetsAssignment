@@ -14,7 +14,7 @@ use Modules\PurchaseManagement\Http\Controllers\PurchaseManagementController;
  *
 */
 
-Route::prefix('purchases')->controller(PurchaseManagementController::class)->group(function () {
+Route::prefix('purchases')->controller(PurchaseManagementController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
 });

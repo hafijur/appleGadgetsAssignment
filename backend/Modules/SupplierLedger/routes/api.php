@@ -14,7 +14,7 @@ use Modules\SupplierLedger\Http\Controllers\SupplierLedgerController;
  *
 */
 
-Route::prefix('supplier-ledgers')->controller(SupplierLedgerController::class)->group(function () {
+Route::prefix('supplier-ledgers')->controller(SupplierLedgerController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::get('/',  'index');
     Route::post('/',  'store');
 });
