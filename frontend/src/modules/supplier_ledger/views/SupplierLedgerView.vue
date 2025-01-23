@@ -34,6 +34,7 @@
           id="supplier"
           class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none shadow-sm"
         >
+          <option value="">Select Supplier</option>
           <option
             v-for="supplier in suppliers"
             :key="supplier.supplier_id"
@@ -128,13 +129,15 @@ export default {
       }
     },
     filterLedger() {
-      console.log("Filtering ledger entries...");
       const filters = {
         start_date: this.filters.startDate,
         end_date: this.filters.endDate,
         supplier_id: this.filters.supplier_id,
       };
       this.loadLedgers(1, filters);
+      filters.startDate = null;
+      filters.endDate = null;
+      filters.supplier_id = null;
     },
   },
 };
