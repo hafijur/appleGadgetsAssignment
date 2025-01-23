@@ -6,6 +6,10 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 // Create an axios instance with the base URL
 const api = axios.create({
     baseURL: apiBaseUrl,
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
 });
 
 export const fetchLedgers = async (page = 1, params = {}) => {

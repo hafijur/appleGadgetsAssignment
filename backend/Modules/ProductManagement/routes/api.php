@@ -13,8 +13,9 @@ use Modules\ProductManagement\Http\Controllers\ProductController;
  * is assigned the "api" middleware group. Enjoy building your API!
  *
 */
+// add sanctum middleware to the routes
 
-Route::prefix('products')->controller(ProductController::class)->group(function () {
+Route::prefix('products')->controller(ProductController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::post('/', 'store');
     Route::put('/{product_id}', 'update');
     Route::delete('/{product_id}', 'destroy');
