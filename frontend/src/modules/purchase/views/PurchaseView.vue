@@ -9,6 +9,11 @@
         + Add Purchase
       </button>
     </div>
+    <PurchaseOrder
+      :show="showModal"
+      :purchaseItems="purchaseItems"
+      @close="closeModal"
+    />
 
     <PurchaseForm
       v-if="showForm"
@@ -22,6 +27,7 @@
     <PurchaseList
       :purchases="purchases"
       :meta="meta"
+      @detail="openModal"
       @nextPage="nextPage"
       @prevPage="prevPage"
     />
@@ -33,10 +39,11 @@ import { fetchPurchases, createPurchase } from "../services/purchaseService";
 import PurchaseForm from "../components/PurchaseForm.vue";
 import PurchaseList from "../components/PurchaseList.vue";
 import { fetchSuppliers } from "@/modules/supplier/services/supplierService";
+import PurchaseOrder from "../components/PurchaseOrder.vue";
 
 export default {
   name: "PurchaseView",
-  components: { PurchaseForm, PurchaseList },
+  components: { PurchaseForm, PurchaseList, PurchaseOrder },
   data() {
     return {
       purchases: [],
@@ -44,6 +51,8 @@ export default {
       suppliers: [], // Load from API
       showForm: false,
       submitDisabled: false,
+      showModal: false,
+      purchaseItems: [],
     };
   },
   async created() {
@@ -51,6 +60,17 @@ export default {
     await this.loadSuppliers();
   },
   methods: {
+    openModal(purchase) {
+      console.log("Open modal Purchase:", purchase);
+
+      this.purchaseItems = purchase.purchase_items;
+
+      this.showModal = true;
+      console.log("Open modal Purchase:", this.purchaseItems);
+    },
+    closeModal() {
+      this.showModal = false;
+    },
     async loadPurchases() {
       try {
         const response = await fetchPurchases();

@@ -32,7 +32,7 @@
           <td class="py-2 px-4">{{ purchase.total_amount }}</td>
           <td class="py-2 px-4">
             <button
-              @click="toggleDetails(purchase.purchase_id)"
+              @click="detail(purchase)"
               class="py-1 px-3 bg-indigo-600 text-white outline-none hover:bg-indigo-700"
             >
               {{
@@ -127,6 +127,9 @@ export default {
     toggleDetails(purchaseId) {
       this.expandedPurchase =
         this.expandedPurchase === purchaseId ? null : purchaseId;
+    },
+    detail(purchase) {
+      this.$emit("detail", purchase);
     },
   },
 };
