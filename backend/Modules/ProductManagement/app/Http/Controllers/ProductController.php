@@ -30,6 +30,18 @@ class ProductController extends Controller
         ]);
     }
 
+    //all categories
+    public function listCategories()
+    {
+        $categories = $this->productService->listCategories();
+
+        return response()->json([
+            'success' => true,
+            'data' => $categories['data'],
+            'meta' => $categories['meta'],
+        ]);
+    }
+
     public function store(ProductCreateRequest $request)
     {
         try {

@@ -16,8 +16,10 @@ use Modules\ProductManagement\Http\Controllers\ProductController;
 // add sanctum middleware to the routes
 
 Route::prefix('products')->controller(ProductController::class)->middleware(['auth:sanctum'])->group(function () {
+
     Route::post('/', 'store');
     Route::put('/{product_id}', 'update');
     Route::delete('/{product_id}', 'destroy');
     Route::get('/', 'index');
+    Route::get('/categories', 'listCategories');
 });

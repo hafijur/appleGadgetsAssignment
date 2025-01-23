@@ -32,6 +32,25 @@
           />
         </div>
         <div>
+          <label for="supplier" class="block text-sm font-medium"
+            >Categories</label
+          >
+          <select
+            v-model="form.category_id"
+            id="supplier"
+            class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none shadow-sm"
+          >
+            <option value="">Select Category</option>
+            <option
+              v-for="category in categories"
+              :key="category.category_id"
+              :value="category.category_id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div>
           <label for="price" class="block text-sm font-medium">Price</label>
           <input
             v-model="form.price"
@@ -60,8 +79,9 @@
         >
           Cancel
         </button>
-        <button 
-          type="submit" :disabled="submitDisabled"
+        <button
+          type="submit"
+          :disabled="submitDisabled"
           class="py-2 px-4 border border-transparent outline-none text-sm text-white bg-indigo-600 hover:bg-indigo-700"
         >
           {{ formMode === "edit" ? "Update" : "Create" }}
@@ -78,6 +98,10 @@ export default {
     initialProduct: {
       type: Object,
       default: () => ({}),
+    },
+    categories: {
+      type: Array,
+      default: () => [],
     },
     formMode: {
       type: String,

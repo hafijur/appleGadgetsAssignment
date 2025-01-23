@@ -14,6 +14,7 @@
     <!-- Product Form (Create/Edit) -->
     <ProductForm
       v-if="showForm"
+      :categories="categories"
       :key="selectedProduct?.product_id || 'new'"
       :submitDisabled="submitDisabled"
       :initialProduct="selectedProduct || {}"
@@ -21,6 +22,59 @@
       @submit="handleFormSubmit"
       @close="closeForm"
     />
+
+    <!-- filter -->
+
+    <div class="flex space-x-4 mt-4 items-center">
+      <div>
+        <label for="product" class="block text-sm font-medium"
+          >Product Name</label
+        >
+        <input
+          type="text"
+          v-model="filters.name"
+          class="py-2 px-3 border rounded"
+        />
+      </div>
+
+      <div>
+        <label for="product" class="block text-sm font-medium"
+          >Product SKU</label
+        >
+        <input
+          type="text"
+          v-model="filters.SKU"
+          class="py-2 px-3 border rounded"
+        />
+      </div>
+
+      <div>
+        <label for="supplier" class="block text-sm font-medium"
+          >Categories</label
+        >
+        <select
+          v-model="filters.category_id"
+          id="supplier"
+          class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none shadow-sm"
+        >
+          <option value="">Select Category</option>
+          <option
+            v-for="category in categories"
+            :key="category.category_id"
+            :value="category.category_id"
+          >
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        @click="filterProduct"
+        class="h-[42px] px-10 bg-indigo-600 text-white outline-none hover:bg-indigo-700 self-end"
+      >
+        Filter
+      </button>
+    </div>
 
     <!-- Product Table -->
     <div class="overflow-x-auto">
@@ -30,6 +84,9 @@
             <th class="py-2 px-4 border-b border-gray-200 text-left">SL</th>
             <th class="py-2 px-4 border-b border-gray-200 text-left">Name</th>
             <th class="py-2 px-4 border-b border-gray-200 text-left">SKU</th>
+            <th class="py-2 px-4 border-b border-gray-200 text-left">
+              Category
+            </th>
             <th class="py-2 px-4 border-b border-gray-200 text-left">Price</th>
             <th class="py-2 px-4 border-b border-gray-200 text-left">
               Initial Stock Quantity
@@ -58,6 +115,9 @@
             </td>
             <td class="py-2 px-4 border-b border-gray-200">
               {{ product.SKU }}
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200">
+              {{ product.category_name || "Unknown Category" }}
             </td>
             <td class="py-2 px-4 border-b border-gray-200">
               {{ product.price }}
@@ -116,6 +176,7 @@ import {
   deleteProduct,
   createProduct,
   updateProduct,
+  fetchCategories,
 } from "../services/productService";
 import ProductForm from "../components/ProductForm.vue";
 
@@ -125,6 +186,12 @@ export default {
   data() {
     return {
       products: [],
+      filters: {
+        category_id: null,
+        name: "",
+        SKU: "",
+      },
+      categories: [],
       submitDisabled: false, // Disable submit button while submitting
       meta: {}, // Pagination meta data
       selectedProduct: null, // Used for editing a product
@@ -134,16 +201,26 @@ export default {
 
   async created() {
     await this.loadProducts();
+    await this.loadCategories();
   },
   methods: {
-    async loadProducts() {
+    async loadProducts(page = 1, filters = {}) {
       try {
-        const response = await fetchProducts();
+        const response = await fetchProducts(page, 10, filters);
         this.products = response.data; // Assuming API response has a "data" field
         this.meta = response.meta; // Assuming API response has a "meta" field
       } catch (error) {
         this.showError(error.response.data);
         console.error("Error fetching products:", error);
+      }
+    },
+    async loadCategories() {
+      try {
+        const response = await fetchCategories();
+        this.categories = response.data;
+      } catch (error) {
+        this.showError(error.response.data);
+        console.error("Error fetching categories:", error);
       }
     },
     openCreateForm() {
@@ -212,6 +289,10 @@ export default {
         this.showError(error.response.data);
         console.error("Error fetching products:", error);
       }
+    },
+    filterProduct() {
+      console.log("filters", this.filters);
+      this.loadProducts(1, this.filters);
     },
   },
 };

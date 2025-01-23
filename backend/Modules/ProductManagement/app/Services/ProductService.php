@@ -2,6 +2,7 @@
 
 namespace Modules\ProductManagement\Services;
 
+use Modules\ProductManagement\Models\Category;
 use Modules\ProductManagement\Models\Product;
 use Modules\ProductManagement\Services\Contracts\ProductContract;
 
@@ -12,11 +13,11 @@ class ProductService implements ProductContract
         $query = Product::query();
 
         if (! empty($filters['name'])) {
-            $query->where('name', 'like', '%'.$filters['name'].'%');
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
         }
 
         if (! empty($filters['SKU'])) {
-            $query->where('SKU', 'like', '%'.$filters['SKU'].'%');
+            $query->where('SKU', 'like', '%' . $filters['SKU'] . '%');
         }
 
         if (! empty($filters['category_id'])) {
@@ -58,5 +59,22 @@ class ProductService implements ProductContract
         $product = Product::findOrFail($productId);
 
         return $product->delete();
+    }
+
+    // list categories
+    public function listCategories(): array
+    {
+        $categories = Category::all();
+        return [
+            'data' => $categories,
+            'meta' => [
+                'current_page' => 1,
+                'per_page' => $categories->count(),
+                'total' => $categories->count(),
+                'last_page' => null,
+                'prev_page_url' => null,
+                'next_page_url' => null
+            ],
+        ];
     }
 }

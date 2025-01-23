@@ -5,6 +5,7 @@ namespace Modules\ProductManagement\Services\Contracts;
 interface ProductContract
 {
     public function listProducts(array $filters, int $page = 10): array;
+    public function listCategories(): array;
 
     public function createProduct(array $data): object;
 
