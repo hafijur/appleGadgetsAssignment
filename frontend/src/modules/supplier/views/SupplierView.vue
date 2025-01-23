@@ -14,6 +14,7 @@
     <!-- Supplier Form (Create/Edit) -->
     <SupplierForm
       v-if="showForm"
+      :key="selectedSupplier?.supplier_id || 'new'"
       :submitDisabled="submitDisabled"
       :initialSupplier="selectedSupplier || {}"
       :formMode="selectedSupplier ? 'edit' : 'create'"
@@ -23,9 +24,11 @@
 
     <!-- supplier filter by name -->
 
-    <div class="flex space-x-4 mt-4">
+    <div class="flex space-x-4 mt-4 items-center">
       <div>
-        <label for="supplier" class="block text-sm font-medium">Supplier Name</label>
+        <label for="supplier" class="block text-sm font-medium"
+          >Supplier Name</label
+        >
         <input
           type="text"
           v-model="filters.name"
@@ -34,7 +37,7 @@
       </div>
       <button
         @click="filterSupplier"
-        class="px-4 bg-indigo-600 text-white outline-none hover:bg-indigo-700"
+        class="h-[42px] px-10 bg-indigo-600 text-white outline-none hover:bg-indigo-700 self-end"
       >
         Filter
       </button>
@@ -151,20 +154,19 @@ export default {
     await this.loadSuppliers();
   },
   methods: {
-   async filterSupplier() {
+    async filterSupplier() {
+      if (this.filters.name === "") {
+        return;
+      }
 
-     if (this.filters.name === "") {
-       return;
-     }
-
-    try {
-      const response = await fetchSuppliers(1, 10, this.filters);
-      this.suppliers = response.data;
-      this.meta = response.meta;
-    } catch (error) {
-      this.showError(error.response.data);
-      console.error("Error fetching suppliers:", error);
-    }
+      try {
+        const response = await fetchSuppliers(1, 10, this.filters);
+        this.suppliers = response.data;
+        this.meta = response.meta;
+      } catch (error) {
+        this.showError(error.response.data);
+        console.error("Error fetching suppliers:", error);
+      }
     },
     async loadSuppliers() {
       try {
@@ -182,6 +184,7 @@ export default {
       this.selectedSupplier = null;
     },
     openEditForm(supplier) {
+      console.log("Editing supplier:", supplier); // Debugging
       this.showForm = true;
       this.selectedSupplier = { ...supplier };
     },

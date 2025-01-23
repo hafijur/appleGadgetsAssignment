@@ -14,6 +14,7 @@
     <!-- Product Form (Create/Edit) -->
     <ProductForm
       v-if="showForm"
+      :key="selectedProduct?.product_id || 'new'"
       :submitDisabled="submitDisabled"
       :initialProduct="selectedProduct || {}"
       :formMode="selectedProduct ? 'edit' : 'create'"
