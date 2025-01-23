@@ -6,6 +6,7 @@ import supplierRoutes from "@/modules/supplier/router";
 import purchaseRoutes from "@/modules/purchase/router";
 import supplierLedgerRoutes from "@/modules/supplier_ledger/router";
 import LoginPage from '@/views/LoginPage.vue';
+import NotFound from '@/views/NotFound.vue';
 
 const routes = [
     {
@@ -30,7 +31,12 @@ const routes = [
     ...productRoutes,
     ...supplierRoutes,
     ...purchaseRoutes,
-    ...supplierLedgerRoutes
+    ...supplierLedgerRoutes,
+    {
+        path: "/:pathMatch(.*)*", // Catch-all route for undefined paths
+        name: "NotFound",
+        component: NotFound,
+    },
 ];
 
 const router = createRouter({
@@ -42,10 +48,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const isAuthenticated = !!localStorage.getItem("authToken"); // Example authentication logic
     if (!to.meta.public && !isAuthenticated) {
-      next({ name: "Login" });
+        next({ name: "Login" });
     } else {
-      next();
+        next();
     }
-  });
+});
 
 export default router;
